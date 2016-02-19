@@ -1,0 +1,22 @@
+<% provide(:title, "GAMES") %>
+<% provide(:name, "GAMES") %>
+
+<%= link_to "rubik's cube" , cube_path %>
+<%= image_tag "Capture3.jpg" , class: "hh" %>
+<script>
+$(".hh").click(function(){
+	$("#myModal").modal('show');
+}) ;
+$(".close").click(function(){
+	$('#m').popover('hide');
+});
+</script>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+     
+  </div>
+      <div class="modal-body">
+      	 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+         <%= render :template =>'/game/platformer' %>
+      </div>
+</div>

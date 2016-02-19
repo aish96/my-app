@@ -1,0 +1,16 @@
+
+<% provide(:title, "YOUR POST") %>
+<% provide(:name, "YOUR POST") %>
+<p>
+  <strong>Title:</strong>
+  <%= @micropost.title %>
+</p>
+ 
+<p>
+  <strong>Text:</strong>
+  <%= @micropost.text %>
+</p>
+
+<%= link_to 'Back', microposts_path %>
+<br>
+<%= link_to 'Edit', edit_micropost_path %>

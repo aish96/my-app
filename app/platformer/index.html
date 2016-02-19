@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"/>
+<title>Platformer Example</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src='../../lib/quintus.js'></script>
+<script src='../../lib/quintus_sprites.js'></script>
+<script src='../../lib/quintus_scenes.js'></script>
+<script src='../../lib/quintus_input.js'></script>
+<script src='../../lib/quintus_anim.js'></script>
+<script src='../../lib/quintus_2d.js'></script>
+<script src='../../lib/quintus_touch.js'></script>
+<script src='../../lib/quintus_ui.js'></script>
+
+<script src='platformer.js'></script>
+<style> 
+  body
+   { padding:20px; margin:20px; text-align: center;} 
+  #b{
+  position: fixed;
+  background-color: rgba(0,0,50,0.5);
+  z-index: 1;
+ }
+ #mygame{
+ z-index: 0;
+ position: fixed;
+ }
+
+
+</style>
+</head>
+<body>
+	
+<div id='loading'>
+     <div class="progress">
+  <div class="progress-bar progress-bar-striped active" role="progressbar"
+  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+    loading...
+  </div>
+</div>
+    </div>
+    <div id='b' style="width:1050px; height:650px ; "></div>
+ <canvas id='mygame' width="1050" height="600"></canvas>
+ <a id="e" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" title=" QUESTION" ></a>
+<div  id="but" style="display: none">
+  <form role="form">
+    <div class="radio">
+      <label><input type="radio" name="optradio">Option 1</label>
+    </div>
+    <div class="radio">
+      <label><input type="radio" name="optradio">Option 2</label>
+    </div>
+    <div class="radio ">
+      <label><input type="radio" name="optradio" >Option 3</label>
+    </div>
+<div class="radio ">
+      <label><input type="radio" name="optradio" >Option 4</label>
+    </div>
+  </form>
+  <button type="button" class="btn btn-primary">Submit</button>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){ console.log("hello");
+  $('#b').hide();
+  var off=$(".mygame").offset();
+  console.log(off.top, off.left);
+});</script>
+
+<!--
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+ </body>
+
+</html>

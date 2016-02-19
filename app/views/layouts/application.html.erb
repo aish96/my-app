@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= yield(:title) %> | MY BLOG</title>
+	<h1><%= yield(:name) %></h1>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+    <%= csrf_meta_tags %>
+</head>
+<body>
+<header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <%= link_to "MY BLOG", root_path, id: "logo" %>
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Home",   root_path %></li>
+            <li><%= link_to "Games",   games_path %></li> 
+            <li><%= link_to "Help",   help_path %></li>
+           </ul>
+           <ul class="nav navbar-nav pull-right">
+        <% if user_signed_in? %>
+         
+                       
+              <li><%= link_to current_user.name, edit_user_registration_path %></li>
+              <li><%= link_to 'Log out', destroy_user_session_path, :method=> 'delete' %></li>
+            
+                <% else %>
+          <li><%= link_to 'Log In', new_user_session_path %></li>
+          <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+        <% end %>
+      </ul>
+        </nav>
+      </div>
+</header>
+    
+<div class="container">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>">
+      <%= value %>
+    </div>
+  <% end %>
+</div>
+<footer class="footer navbar navbar-fixed-bottom navbar-inverse">
+	<div class="container">
+  <nav>
+    <ul class="  nav navbar-nav navbar-right ">
+      <li><%= link_to "About",   about_path %></li>
+      <li><%= link_to "Contact", contact_path %></li>
+      <li><a href="http://news.railstutorial.org/">News</a></li>
+    </ul>
+  </nav>
+</div>
+</footer>
+    <div class="container">
+      <%= yield %>
+    </div>
+
+</body>
+</html>
