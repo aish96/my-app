@@ -80,25 +80,14 @@ p {
 .button2:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
-.micropost {
-  list-style: none;
-  padding: 0;
-  li{
-    padding: 10px 0;
-    border-top:1px solid #e8e8e8;
+#micropost {
+  
+  h4{
+  color:blue;
   }
-  .user {
-  margin-top: 5em;
-  padding-top: 0;
-  }
-  .content {
-  display: block;
-  margin-left: 60px;
-  }
-  .timestamp {
-  color: $gray-light;
-  display: block;
-  margin-left:60px;
+  
+  #timestamp {
+  color: grey;
   }
 }
 #b{

@@ -1,3 +1,7 @@
 <% provide(:title, "EDIT POST") %>
 <% provide(:name, "EDIT POST") %>
+<%  if current_user.id == @micropost.user_id  %>
 <%= render 'form' %>
+<% else %>
+<h3><center>YOU CANT EDIT THIS POST </center> </h3>
+<% end %>

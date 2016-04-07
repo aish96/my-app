@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery_ujs
 //= require bootstrap
 //= require quintus
 //= require quintus_2d
@@ -27,7 +28,7 @@
 //= require OrbitControls
 //= require stats_min
 //= require jquery.turbolinks
-//= require jquery_ujs
+
 //= require turbolinks
 //
 //= require_tree 
