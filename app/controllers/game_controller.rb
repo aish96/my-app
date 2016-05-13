@@ -5,4 +5,6 @@ class GameController < ApplicationController
 	end
 	def cube
 	end
+	def newgame
+	end
 end

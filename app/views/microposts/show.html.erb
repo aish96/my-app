@@ -1,6 +1,7 @@
 
 <% provide(:title, "YOUR POST") %>
 <% provide(:name, "YOUR POST") %>
+<div class="container">
 <p>
   <strong>Title:</strong>
   <%= @micropost.title %>
@@ -10,7 +11,12 @@
   <strong>Text:</strong>
   <%= @micropost.text %>
 </p>
-
-<%= link_to 'Back', microposts_path , class: "btn btn-default"%>
-<%= link_to 'Edit', edit_micropost_path ,class: "btn btn-default"%>
-
+<div class="btn-group btn-group-justified">
+  <%= link_to 'Back', microposts_path , class: "btn btn-primary"%>
+<%= link_to 'Edit', edit_micropost_path ,class: "btn btn-success"%>
+<% if   current_user.id == @micropost.user_id %>
+<%= link_to "Delete", @micropost, method: :delete,
+                                       data: { confirm: "You sure?" } ,class: "btn btn-danger" %>
+<% end -%>
+</div>
+</div>

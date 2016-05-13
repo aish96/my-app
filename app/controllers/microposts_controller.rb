@@ -19,8 +19,10 @@ end
   @micropost = Micropost.new(micropost_params)
   @micropost.user = current_user
  if @micropost.save
+   flash[:success] = "Your post has been created!"
     redirect_to @micropost
   else
+   flash[:alert] = "Your new post couldn't be created!  Please check the form."
     render 'new'
   end
 end

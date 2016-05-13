@@ -1,134 +1,364 @@
-<% provide(:title, "Rubik's Cube") %>
-<script>
+<% provide(:title, "3d maze") %>
 
-			var targetRotation = 0;
-			var targetRotationOnMouseDown = 0;
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  
+    <div class="modal-content">
+      
+      <div class="modal-body"> 
+        <h1>GAME OVER <BR> YOU WIN!</h1>
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">next level</button>
+      </div>
+    </div>
+  </div>
+		<script>
+		var scene = new THREE.Scene();
+		var camera=new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,0.1,1000);
+		camera.position.x = -800;
+        camera.position.y = 400;
+        camera.position.z = -900;
+		scene.add(camera);
 
-			var mouseX = 0;
-			var mouseXOnMouseDown = 0;
+		var renderer=new THREE.WebGLRenderer();
+		//renderer.setClearColor(0x000000,1.0);
+		renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.shadowMapEnabled = true;
 
-			var windowHalfX = window.innerWidth / 2;
-			var windowHalfY = window.innerHeight / 2;
-			var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera( 100, window.innerWidth/window.innerHeight, 0.1, 1000 );
+	/*	controls = new THREE.OrbitControls( camera, renderer.domElement );
+        controls.enableDamping =true;
+        controls.dampingFactor=0.1;
+        controls.enableZoom=false;*/
 
-			var renderer = new THREE.WebGLRenderer();
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			controls = new THREE.OrbitControls( camera, renderer.domElement );
-				//controls.addEventListener( 'change', render ); // add this only if there is no animation loop (requestAnimationFrame)
-				controls.enableDamping = true;
-				controls.dampingFactor = 1;
-				controls.enableZoom = false;
-			document.body.appendChild( renderer.domElement );
-			var c=[];
-			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-			var material = new THREE.MeshNormalMaterial( { color: 0x00ff00 } );
-			for(var i=0;i<27;i++)
-				{c[i]=new THREE.Mesh(geometry,material);
-					scene.add(c[i]);
-					}
-					var p=0;
-			/*	for(var i=0;i<3;i++)
-				{
-					for(var j=0;j<3;j++)
-					{
-						c[p].position.x+=(1.1*j);
-						if(i==1)
-							c[p].position.y=1.1;
-						else if(i==2)
-							c[p].position.y=2.2;
-						p++;
-					}
-				}*/
-				for(var i=-1 ;i<2;i++)
-				{
-					for(var j=-1;j<2;j++)
-					{
-						for(var k=-1;k<2;k++)
-						{
-							c[p].position.x=k*1.1;
-							c[p].position.y=j*1.1;
-							c[p].position.z=i*1.1;
-							p++;
-						}
-					}
-				}
-			//	c[5].position.x=1.1;c[5].position.y=1.1;
-			camera.position.z = 5;
-			//cube5.position.y=-1.1;
-			group= new THREE.Object3D();
-			group2= new THREE.Object3D();
-			group.add(c[24],c[25],c[26],c[6],c[7],c[8],c[15],c[16],c[17]);
-			group2.add(c[0],c[1],c[2],c[9],c[10],c[11],c[20],c[19],c[18]);
-			scene.add(group,group2);
-				//group.rotateY(Math.PI/2);// rotate by 90 degrees
-				document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-			window.addEventListener( 'resize', onWindowResize, false );
+        //var spotlight= new THREE.DirectionalLight();
+        //spotlight.position.set(-700,120,-750);
+       // spotlight.castShadow=true;
+      //  scene.add(spotlight);
+ var light= new THREE.DirectionalLight();
+        light.position.set(-00,100,-750);
+        light.castShadow=true;
+        scene.add(light);
 
-			
+         var pointLight1 = new THREE.PointLight();
+        pointLight1.color = new THREE.Color(0x00ff00);
+        pointLight1.intensity = 5;
+        pointLight1.distance = 60;
+        pointLight1.position.set(750,50,750);
+        scene.add(pointLight1); 
 
-			function onWindowResize() {
+        var pointLight2 = new THREE.PointLight();
+        pointLight2.color = new THREE.Color(0xff0000);
+        pointLight2.intensity = 7;
+        pointLight2.distance = 60;
+        pointLight2.position.set(-650,50,-650);
+        scene.add(pointLight2);
 
-				windowHalfX = window.innerWidth / 2;
-				windowHalfY = window.innerHeight / 2;
+        
 
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
 
-				renderer.setSize( window.innerWidth, window.innerHeight );
+        var floorgeo=new THREE.PlaneGeometry(1600,1600,20,20);
+        var floormat=new THREE.MeshPhongMaterial({map:THREE.ImageUtils.loadTexture("<%= asset_path('wood_1-1024x1024.png') %>")});
+       floormat.map.wrapS = floormat.map.wrapT = THREE.RepeatWrapping;
+        floormat.map.repeat.set(15,15);
+        var floormesh=new THREE.Mesh(floorgeo,floormat);
+       floormesh.rotation.x=-Math.PI/2;
+ 		scene.add(floormesh);
+    var dimension=30,
+    rays ,direction,caster,step,ball,mesh;
+init();
+    function init(){
+        console.log("init");
+        var field = [];
+            for(var i = 0; i < dimension+1; i++) {
+               field[i] = new Array(dimension);
+                for (var j = 0; j < dimension+1; j++) {
+                   field[i][j] = true;
+                }
+            }
+          iterate(field, 1, 1);
 
-			}
-			function onDocumentMouseDown( event ) {
+        
+    var a=[];
+    for(var i=0;i<dimension+2;i++)
+        a.push(true);
+    field.push(a);
+    field.unshift(a);
+     var dummy = new THREE.Geometry();
+       for(var i=0;i<dimension+2;i++)
+        {
+            for(var j=0;j<dimension+2;j++)
+            {
+                if(field[i][j])
+                   {
+                    var geo=new THREE.BoxGeometry(50,200,50);
+                     var cube= new THREE.Mesh(geo,mat);
 
-				event.preventDefault();
+                    cube.position.x=i*50;
+                    cube.position.z=j*50;
+                    THREE.GeometryUtils.merge(dummy, cube);
+                    }
+          }
+       }
+    
+        var mat=new THREE.MeshPhongMaterial({map:THREE.ImageUtils.loadTexture("<%= asset_path('seamless_metal.jpg') %>")});
+         mesh= new THREE.Mesh(dummy,mat);
+       mat.map.wrapS = mat.map.wrapT = THREE.RepeatWrapping;
+       // mat.map.repeat.set(0.4,0.4);
+        scene.add(mesh);
+    mesh.position.x=-750;
+    mesh.position.z=-700;
 
-				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-				document.addEventListener( 'mouseup', onDocumentMouseUp, false );
-				document.addEventListener( 'mouseout', onDocumentMouseOut, false );
+     var ballgeo = new THREE.SphereGeometry(15, 20, 20),
+     hand = new THREE.BoxGeometry(4, 10, 10),
+            foot = new THREE.BoxGeometry(8,50,8),
+            nose = new THREE.SphereGeometry(1, 4, 4);
+        var matProps = {
 
-				mouseXOnMouseDown = event.clientX - windowHalfX;
-				targetRotationOnMouseDown = targetRotation;
+            specular: 0xa9fcff,
+            color: 0x7A43B6,
+            emissive: 0x006063,
+            shininess: 10
+        }
 
-			}
+        var ballmat = new THREE.MeshPhongMaterial(matProps);
+        var head = new THREE.Mesh(ballgeo, ballmat);
+         ball= new THREE.Object3D();
+        ball.castShadow = true;
+       ball.position.y = 50;
+       ball.position.x = -650;
+       ball.position.z = -650;
+        ball.add(head);
+        hands = {
+            left: new THREE.Mesh(hand, ballmat),
+            right: new THREE.Mesh(hand, ballmat)
+        };
+        hands.left.position.x = -18;
+        hands.left.position.y = -8;
+        hands.right.position.x = 18;
+        hands.right.position.y = -8;
+        ball.add(hands.left);
+        ball.add(hands.right);
+        feet = {
+            left: new THREE.Mesh(foot, ballmat),
+            right: new THREE.Mesh(foot, ballmat)
+        };
+        feet.left.position.x = -6;
+        feet.left.position.y = -30;
+       // feet.left.rotation.y = Math.PI / 4;
+        feet.right.position.x = 6;
+        feet.right.position.y = -30;
+      //  feet.right.rotation.y = Math.PI / 4;
+        ball.add(this.feet.left);
+        ball.add(this.feet.right);
+        nose = new THREE.Mesh(nose, ballmat);
+        nose.position.y = 0;
+        nose.position.z = 10;
+        ball.add(nose);
+    scene.add(ball);
+        camera.lookAt(ball.position);
+        controls = {
+                        left: false,
+                        up: false,
+                        right: false,
+                        down: false
+                    };
 
-			function onDocumentMouseMove( event ) {
+  direction = new THREE.Vector3(0, 0, 0);
+  step=0;
 
-				mouseX = event.clientX - windowHalfX;
+     rays = [
+      new THREE.Vector3(0, 0, 1),
+      new THREE.Vector3(1, 0, 1),
+      new THREE.Vector3(1, 0, 0),
+      new THREE.Vector3(1, 0, -1),
+      new THREE.Vector3(0, 0, -1),
+      new THREE.Vector3(-1, 0, -1),
+      new THREE.Vector3(-1, 0, 0),
+      new THREE.Vector3(-1, 0, 1)
+    ];
+     caster = new THREE.Raycaster();
+        renderer.render(scene, camera);
+      	 document.body.appendChild(renderer.domElement);
+      	  render();
+        function render() { 
+			requestAnimationFrame( render );
+      camera.position.set(ball.position.x,ball.position.y+200,ball.position.z-100);
+      camera.lookAt(ball.position);
+     light.position.x = camera.position.x;
+                light.position.y = camera.position.y+100;
+                light.position.z = camera.position.z-400;
+			renderer.render(scene, camera);
+     
+		}
+    animate();
+  }
+   function iterate(field, x, y) {
+        field[x][y] = false;
+        while(true) {
+          var  directions = [];
+            if(x > 1 && field[x-2][y] == true) {
+                directions.push([-1, 0]);
+            }
+            if(x < dimension - 2 && field[x+2][y] == true) {
+                directions.push([1, 0]);
+            }
+            if(y > 1 && field[x][y-2] == true) {
+                directions.push([0, -1]);
+            }
+            if(y < dimension - 2 && field[x][y+2] == true) {
+                directions.push([0, 1]);
+            }
+            if(directions.length == 0) {
+                return ;
+            }
+            dir = directions[Math.floor(Math.random()*directions.length)];
+            field[x+dir[0]][y+dir[1]] = false;
+           iterate(field, x+dir[0]*2, y+dir[1]*2);
+        }
+    }
+    function animate() {
+      m();
 
-				targetRotation = targetRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 0.02;
+    }
+    function m(){
+                 $(document ).on( "swiperight",function()
+                 {
+                  controls.right=true;
+                  console.log(controls.right);
+                 } );
+              $(document).keydown(function (e) {
+            var prevent = true;
+            switch (e.keyCode) {
+                case 37:
+                    controls.left = true;console.log("left");
+                    break;
+                case 38:
+                    controls.up = true;console.log("up");
+                    break;
+                case 39:
+                    controls.right = true;console.log("right");
+                    break;
+                case 40:
+                    controls.down = true;console.log("down");
+                    break;
+                default:
+                    prevent = false;
+            }
+            if (prevent) 
+                e.preventDefault();
+           setDirection(controls);
+        });
+        $(document).keyup(function (e) {
+            var prevent = true;
+            switch (e.keyCode) {
+                case 37:
+                    controls.left = false;
+                    break;
+                case 38:
+                    controls.up = false;
+                    break;
+                case 39:
+                    controls.right = false;
+                    break;
+                case 40:
+                    controls.down = false;
+                    break;
+                default:
+                    prevent = false;
+            }
+            if (prevent) 
+                e.preventDefault();
 
-			}
+           setDirection(controls);
+            
+         });
+    }
 
-			function onDocumentMouseUp( event ) {
+     function setDirection(controls) {
+        var x = controls.left ? 1 : controls.right ? -1 : 0,
+            y = 0,
+            z = controls.up ? 1 : controls.down ? -1 : 0;
+        direction.set(x, y, z);motion();
+    }
+     function motion() {
+       console.log(ball.position.x+"z="+ball.position.z);
+      if(ball.position.x>=740 && ball.position.z>=740)
+        {
+            $('#exampleModal').modal('show') ;
+            $('.btn').click(function(){
+              scene.remove(mesh);
 
-				document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
-				document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
-				document.removeEventListener( 'mouseout', onDocumentMouseOut, false );
+                        console.log("destroy object mesh");
+                        mesh.material.map.dispose();
+                        mesh.material.dispose();
+                        mesh.geometry.dispose();
+                            
+                  ball.position.y = 50;
+       ball.position.x = -650;
+       ball.position.z = -650;
+                        
+              init();
+            });
 
-			}
+        }
+        collision();
+        if (direction.x != 0 || direction.z != 0) {
+           rotate();
+           /* if (ball.collide()) {
+                return false;
+            }*/
+            move();
+            return true;
+        }
+    }
+     function rotate() {
+        var angle = Math.atan2(direction.x, direction.z),
+            difference = angle - ball.rotation.y;
+        if (Math.abs(difference) > Math.PI) {
+            if (difference > 0) {
+                ball.rotation.y +=  Math.PI;
+            } else {
+                ball.rotation.y -=  Math.PI;
+            }
+            difference = angle - ball.rotation.y;
+        }
+        if (difference != 0) {
+            ball.rotation.y += difference / 4;
+        }
+    }
+     function move() {
+        ball.position.x += direction.x * ((direction.z == 0) ? 5 : Math.sqrt(10));
+        ball.position.z += direction.z * ((direction.x == 0) ? 5 : Math.sqrt(10));
+        step += 1 / 4;
+        feet.left.position.setZ(Math.sin(step) * 16);
+        feet.right.position.setZ(Math.cos(step + (Math.PI / 2)) * 16);
+        hands.left.position.setZ(Math.cos(step + (Math.PI / 2)) * 8);
+        hands.right.position.setZ(Math.sin(step) * 8);
+    }
 
-			function onDocumentMouseOut( event ) {
+     function collision() {
+    var collisions, i,distance = 20;
+    for (i = 0; i <rays.length; i++) 
+    {
+      caster.set(ball.position, this.rays[i]);
+      collisions = caster.intersectObject(mesh);
+      if (collisions.length > 0 && collisions[0].distance <= distance) 
+      {
+        if ((i == 0 || i == 1 || i == 7) && direction.z == 1) {
+          direction.setZ(0);
+        } 
+        else if ((i == 3 || i == 4 || i == 5) && direction.z == -1) {
+          direction.setZ(0);
+        }
+        if ((i == 1 || i == 2 || i == 3) && direction.x === 1) {
+          direction.setX(0);
+        } 
+        else if ((i == 5 || i == 6 || i == 7) && direction.x === -1) {
+          direction.setX(0);
+        }
+      }
+    }
+  }
 
-				document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
-				document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
-				document.removeEventListener( 'mouseout', onDocumentMouseOut, false );
-
-			}	
-			var render = function () {
-				requestAnimationFrame( render );
-				group.rotation.y += ( targetRotation - group.rotation.y ) * 0.05;
-
-				//group.rotateY("-0.05");
-				group2.rotateY("0.05");
-				//c[26].rotateX(0.01);
-				//c[26].position.z-=0.1;
-				//c[0].rotation.x += 0.02;
-				c[2].rotation.y = 0.05;
-				//cube1.position.y=0;
-				//cube3.position.x=-1.1;cube4.position.y=1.1;*/
-				renderer.render(scene, camera);
-				
-			};
-
-			render();
 		</script>

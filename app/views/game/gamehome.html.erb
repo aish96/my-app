@@ -1,15 +1,24 @@
 <% provide(:title, "GAMES") %>
 <% provide(:name, "GAMES") %>
+<center>
+<%= link_to "rubik's cube" , cube_path %><br>
+<%= image_tag "Capture3.jpg" , class: " game " %><br><br>
+<%= image_tag "Capture.jpg" , class: " game " %>
+</center>
 
-<%= link_to "rubik's cube" , cube_path %>
-<%= image_tag "Capture3.jpg" , class: "hh" %>
 <script>
-$(".hh").click(function(){
+var ready;
+ready = function() {
+
+$(".game").click(function(){
 	$("#myModal").modal('show');
 }) ;
 $(".close").click(function(){
 	$('#m').popover('hide');
 });
+};
+$(document).ready(ready);
+$(document).on('page:load', ready);
 </script>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   

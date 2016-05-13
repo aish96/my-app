@@ -20,7 +20,7 @@ textarea {
 }
 
 .jumbotron{
-	background-color: #aeaeaa;
+	background-color: rgba(0,0,0,0.5);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -80,10 +80,24 @@ p {
 .button2:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
+
+
+
+.panel {
+  background-color: rgba(0,0,0,0.5);
+  padding-top: 2em;
+  padding-bottom: 2em;
+  height: 100%;
+   text-align:center;
+   color:#ffffff;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 #micropost {
-  
   h4{
-  color:blue;
+  color:rgb(128, 0, 128);
   }
   
   #timestamp {
@@ -99,12 +113,12 @@ p {
  z-index: 1;
  position: fixed;
  }
- .hh {
+ .game {
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
 }
- .hh:hover{opacity:0.7}
+ .game:hover{opacity:0.7}
  #myModal, #caption {    
     -webkit-animation-name: zoom;
     -webkit-animation-duration: 0.6s;

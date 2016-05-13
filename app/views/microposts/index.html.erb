@@ -1,18 +1,20 @@
 <% if user_signed_in? %>
 <% provide(:title, "ALL POSTS ") %>
 <% provide(:name, "listing microposts") %>
-  
+<body background="<%= asset_path('large.jpg') %>">
+  <h3> YOUR MICROPOSTS (<%= current_user.microposts.count %>)</h3>
  <center><%= link_to 'New post', new_micropost_path , class: 'btn btn-primary'%></center>
  <br>
   <% @microposts.each do |micropost| %>
-  <div id="micropost" class="well">
-    <h4><span class="glyphicon glyphicon-user"style="color:black"></span>  <%=  micropost.user.name %></h4> 
+  <div id="micropost" class="well" >
+    <h4><span class="glyphicon glyphicon-user"style="color:black"></span>  <%= link_to micropost.user.name, profile_path %></h4> 
    <div id="title">
    <span class="glyphicon glyphicon-list-alt"style="color:black"> 
     <strong><%= link_to micropost.title, micropost_path(micropost) %>:</strong>
    <%= micropost.text %><br></div>
     <div id="timestamp">posted <%= time_ago_in_words(micropost.created_at) %> ago.</div>
   </div>
+
   <% end %>
 
 

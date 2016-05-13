@@ -1,0 +1,20 @@
+<% provide(:title, current_user.name) %>
+<% provide(:name, "PROFILE") %>
+
+	<h3>YOUR MICROPOSTS (<%= current_user.microposts.count %>)</h3><hr>
+ <% @posts.each do |micropost| %>
+  <div id="micropost" >
+    
+   <div id="title">
+   <span class="glyphicon glyphicon-list-alt"style="color:black"> 
+    <strong><%= link_to micropost.title, micropost_path(micropost) %>:</strong>
+   <%= micropost.text %><br></div>
+    <div id="timestamp">posted <%= time_ago_in_words(micropost.created_at) %> ago.</div>
+  </div>
+<hr>
+  <% end %>
+
+
+
+ <%= link_to "edit profile", edit_user_registration_path , class: "btn btn-danger"%>
+ 

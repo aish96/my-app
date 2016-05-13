@@ -7,4 +7,8 @@ class ArticlesController < ApplicationController
   end
   def about	
   end
+  def profile
+     @user = current_user
+     @posts = @user.microposts
+  end
 end

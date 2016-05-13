@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'help'    => 'articles#help'
   get 'about'   => 'articles#about'
   get 'contact' => 'articles#contact'
+  get 'profile' => 'articles#profile'
   get 'games' => 'game#gamehome'
   get 'platformer' =>'game#platformer'
   get 'cube' =>'game#cube'
