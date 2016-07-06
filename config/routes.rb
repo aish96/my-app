@@ -10,10 +10,15 @@ Rails.application.routes.draw do
   get 'games' => 'game#gamehome'
   get 'platformer' =>'game#platformer'
   get 'cube' =>'game#cube'
+  get 'trial'=> 'game#trial'
   authenticate :user do
-   resources :microposts , only: [:new, :create, :edit, :update , :destroy]
+   resources :microposts , only: [:new, :create, :edit, :update , :destroy, :like]
  end
   resources :microposts, only: [:index,:show]
+  resources :microposts do
+    put :like
+    put :unlike
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

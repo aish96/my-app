@@ -1,0 +1,6 @@
+<%= link_to  micropost_unlike_path(@micropost), method: :put,class: "btn btn-lg btn-default unliked" , style: 'border-radius:20px; background:rgba(0,0,0,0); ',remote:true do%>
+<i class="fa fa-heart" aria-hidden="true" ></i>&nbsp Unlike
+<span class="badge">
+<%= @micropost.likes.count %>
+</span>
+<% end %> 

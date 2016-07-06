@@ -28,7 +28,17 @@
 //= require OrbitControls
 //= require stats_min
 //= require jquery.turbolinks
-
+//
+//= require froala_editor.min.js
+//= require plugins/font_family.min.js
+//= require plugins/font_size.min.js
+//= require plugins/link.min.js
+//= require plugins/quote.min.js
+//= require plugins/save.min.js
+//= require plugins/table.min.js
+//= require plugins/url.min.js
+//= require plugins/video.min.js
+//= require plugins/colors.min.js
 //= require turbolinks
 //
 //= require_tree 

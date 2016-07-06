@@ -4,5 +4,11 @@ class Micropost < ActiveRecord::Base
 	validates :user_id, presence: true
 	 validates :title, presence: true,
                     length: { minimum: 5 }
-      validates :text, presence: true, length: { maximum: 140}
+      validates :text, presence: true , length: {maximum: 140}
+      validates :content, presence: true
+      has_many :likes
+
+      
+  
+
 end

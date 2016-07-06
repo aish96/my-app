@@ -4,11 +4,29 @@ body {
   padding-top: 60px;
   }
 
+div.polaroid {
+
+  width: 45%;
+  height:420px;
+  margin-right:50px;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 25px;
+
+  img{
+  width:100%;
+  }
+}
+
+div.container {
+  
+  padding: 10px 20px;
+}
 section {
   overflow: auto;
 }
 
-textarea {
+#froala-editor {
   resize: vertical;
 }
 
@@ -32,6 +50,7 @@ h1 {
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
+
 }
 
 h2 {
@@ -100,10 +119,11 @@ p {
   color:rgb(128, 0, 128);
   }
   
-  #timestamp {
-  color: grey;
-  }
+  
 }
+#timestamp {
+  color: rgba(0,0,0,0.6);
+  }
 #b{
   position: absolute;
   background-color: rgba(0,0,0,0.5);

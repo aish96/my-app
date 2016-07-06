@@ -7,4 +7,6 @@ class GameController < ApplicationController
 	end
 	def newgame
 	end
+	def trial
+	end
 end

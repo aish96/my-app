@@ -22,7 +22,7 @@
 		scene.add(camera);
 
 		var renderer=new THREE.WebGLRenderer();
-		//renderer.setClearColor(0x000000,1.0);
+		renderer.setClearColor(0x000000,1.0);
 		renderer.setSize( window.innerWidth, window.innerHeight );
         renderer.shadowMapEnabled = true;
 
@@ -287,18 +287,19 @@ init();
         {
             $('#exampleModal').modal('show') ;
             $('.btn').click(function(){
-              scene.remove(mesh);
+       //        scene.remove(mesh);
 
-                        console.log("destroy object mesh");
-                        mesh.material.map.dispose();
-                        mesh.material.dispose();
-                        mesh.geometry.dispose();
+       //                  console.log("destroy object mesh");
+       //                  mesh.material.map.dispose();
+       //                  mesh.material.dispose();
+       //                  mesh.geometry.dispose();
                             
-                  ball.position.y = 50;
-       ball.position.x = -650;
-       ball.position.z = -650;
+       //            ball.position.y = 50;
+       // ball.position.x = -650;
+       // ball.position.z = -650;
                         
-              init();
+       //        init();
+       location.reload();
             });
 
         }

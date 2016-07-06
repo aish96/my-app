@@ -32,7 +32,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sprockets-rails',  :require => 'sprockets/railtie'
 # Use Unicorn as the app server
 # gem 'unicorn'
-
+gem "wysiwyg-rails"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

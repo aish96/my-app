@@ -357,7 +357,7 @@ if(initial)
   cnt=0,startx=200,starty=500;
 }
 //stage.insert(new Q.Repeater({ asset: "back.png",repeatY:true, speedX: 10, speedY: 0.5 })); 
-  Q.stageTMX("level.json",stage);
+  Q.stageTMX("level.tmx",stage);
 
   var player = stage.insert(new Q.Player({x:startx,y:starty}));
    stage.add("viewport").follow(player);
@@ -388,7 +388,7 @@ Q.scene('endGame',function(stage) {
         container.fit(20);
 });
 
-Q.load( "<%= asset_path('level.json') %>,<%= asset_path('main.json') %>,<%= asset_path('main.png') %>,<%= asset_path('enemies.png') %>,<%= asset_path('enemies.json') %>,<%= asset_path('bird.json') %>,<%= asset_path('bird.png') %>,<%= asset_path('pole.json') %>,<%= asset_path('pole.png') %>,<%= asset_path('collectables.json') %>,<%= asset_path('collectables.png') %>", function() {
+Q.load( "<%= asset_path('level.tmx') %>,<%= asset_path('main.json') %>,<%= asset_path('main.png') %>,<%= asset_path('enemies.png') %>,<%= asset_path('enemies.json') %>,<%= asset_path('bird.json') %>,<%= asset_path('bird.png') %>,<%= asset_path('pole.json') %>,<%= asset_path('pole.png') %>,<%= asset_path('collectables.json') %>,<%= asset_path('collectables.png') %>", function() {
   Q.compileSheets("door.png","door.json");
   Q.compileSheets("main.png","main.json");
  Q.compileSheets("enemies.png","enemies.json");

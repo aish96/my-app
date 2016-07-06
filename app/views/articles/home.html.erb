@@ -1,22 +1,16 @@
 <% provide(:title, "Home") %>
  
+<body style="background:url('/assets/cat.jpg'); ">
 
 <% if !user_signed_in? %>
- <div class="center jumbotron">
-  <h1>Welcome to my blog!</h1>
+ <div class="center jumbotron"  >
+  <h1 style="color:white;">Welcome to my world! <br></h1>
 
-<h4>hello</h4> 
-<%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-lg btn-primary" %>
- </div>	<% else %>
- <h1>
-<%= current_user.name %><br><br></h1>
-<div class="col-md-8">
-	<%=  current_user.microposts.any? %>
-	<h3>MICROPOSTS (<%= current_user.microposts.count %>)</h3>
-	logged in as
-<%= current_user.email %>
-</div>
-<%= link_to 'My Blog', controller: 'microposts', class: "btn btn-lg btn-primary" %>
+<h4 style="color:white;">Hola ! <br>Whatcha waiting for ? </h4> 
+
+<%= link_to "Sign up now", new_user_registration_path, class: "btn btn-lg btn-default sign_up" , style: 'border-radius:20px; background:rgba(0,0,0,0);color:white;'%> 
+ <%= link_to "Log in now",new_user_session_path,class: "btn btn-lg btn-default log_in" , style: 'border-radius:20px; background:rgba(0,0,0,0);color:white;' %>
+ </div>	
  <% end %>
 
 

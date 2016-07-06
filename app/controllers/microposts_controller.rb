@@ -1,4 +1,5 @@
 class MicropostsController < ApplicationController
+  before_filter :authenticate_user!
 	def index
    # if user_signed_in?
     @microposts = Micropost.all
@@ -42,9 +43,25 @@ def destroy
  
     redirect_to microposts_path
   end
+
+  
+def like
+    @micropost= Micropost.find(params[:micropost_id])
+    @cnt=0
+    Like.create(:user_id =>current_user.id , :micropost_id=>@micropost.id)
+    
+  end
+  def unlike
+    @micropost= Micropost.find(params[:micropost_id])
+    @cnnt=0
+     Like.find_by_user_id_and_micropost_id(current_user,@micropost.id).destroy
+   
+  end
+
 private
   def micropost_params
-    params.require(:micropost).permit(:title, :text)
+    params.require(:micropost).permit(:title, :text, :content)
   end
+
 
 end

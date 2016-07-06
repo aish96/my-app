@@ -7,11 +7,21 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
     <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body >
 <header class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
-        <%= link_to "MY BLOG", root_path, id: "logo" %>
+       <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <%= link_to "Aishwarya", root_path, id: "logo" %>
+
+    </div>
+     <div class="collapse navbar-collapse" id="myNavbar">
         <nav>
           <ul class="nav navbar-nav navbar-right">
             <li><%= link_to "Home",   root_path %></li>
@@ -32,6 +42,7 @@
       </ul>
         </nav>
       </div>
+      </div>
 </header>
     
 <div class="container">
@@ -41,20 +52,21 @@
     </div>
   <% end %>
 </div>
-<footer class="footer navbar navbar-fixed-bottom navbar-inverse">
-	<div class="container">
+
+  <div class="container">
+      <%= yield %>
+    </div>
+<div style="height:50px;"></div>
+<!-- <footer class="footer navbar-fixed-bottom navbar navbar-inverse">
+	<div class="container-fluid">
   <nav>
     <ul class="  nav navbar-nav navbar-right ">
       <li><%= link_to "About",   about_path %></li>
       <li><%= link_to "Contact", contact_path %></li>
-      <li><a href="http://news.railstutorial.org/">News</a></li>
     </ul>
   </nav>
 </div>
-</footer>
-    <div class="container">
-      <%= yield %>
-    </div>
-
+</footer> -->
+  
 </body>
 </html>

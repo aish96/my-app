@@ -1,4 +1,4 @@
-  <body background="<%= asset_path('bulb2.jpg') %>">
+  <body background="<%= asset_path('shades.jpg') %>">
 
 <%= form_for @micropost do |f| %>
 
@@ -20,9 +20,27 @@
     <%= f.text_field :title, class: 'form-control' %>
   </div>
   <div class="form-group">
-    <%= f.label :text %>
-    <%= f.text_area :text, class: 'form-control' %>
+    <%= f.label :Description %>
+    <%= f.text_area :text, class: 'form-control'  %>
   </div>
+   <div class="form-group">
+    <%= f.label :content %>
+    <%= f.text_area :content, class: 'form-control',id:'froala-editor'  %>
+  </div>
+  
+<script>
+  $(function() {
+    $('#froala-editor').froalaEditor({
+      // Set custom buttons with separator between them.
+      toolbarButtons: [ 'bold', 'italic', 'underline', 'strikethrough', '|','fontSize','fontFamily','color', 'subscript', 'superscript', 'outdent', 'indent', 'clearFormatting','link', 'insertTable', 'html', '|','undo', 'redo' ],
+      toolbarButtonsXS: ['undo', 'redo' , '-', 'bold', 'italic', 'underline'],
+       fontFamilySelection: true,
+         height: 300,
+         // linkAlwaysBlank: true
+
+    })
+  });
+</script>
   <p>
     <%= f.submit "save", class: 'button2 btn btn-primary' %>
   </p>

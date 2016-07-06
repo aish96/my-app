@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408044014) do
+ActiveRecord::Schema.define(version: 20160703095748) do
+
+  create_table "likes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "micropost_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "microposts", force: :cascade do |t|
     t.string   "title"
@@ -19,6 +26,7 @@ ActiveRecord::Schema.define(version: 20160408044014) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
+    t.text     "content"
   end
 
   add_index "microposts", ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
@@ -46,6 +54,7 @@ ActiveRecord::Schema.define(version: 20160408044014) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "avatar"
+    t.text     "content"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

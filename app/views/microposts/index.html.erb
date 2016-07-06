@@ -1,19 +1,27 @@
 <% if user_signed_in? %>
 <% provide(:title, "ALL POSTS ") %>
 <% provide(:name, "listing microposts") %>
-<body background="<%= asset_path('large.jpg') %>">
-  <h3> YOUR MICROPOSTS (<%= current_user.microposts.count %>)</h3>
+<body style="background:linear-gradient( #fff,#003322)" >
  <center><%= link_to 'New post', new_micropost_path , class: 'btn btn-primary'%></center>
  <br>
   <% @microposts.each do |micropost| %>
-  <div id="micropost" class="well" >
-    <h4><span class="glyphicon glyphicon-user"style="color:black"></span>  <%= link_to micropost.user.name, profile_path %></h4> 
-   <div id="title">
-   <span class="glyphicon glyphicon-list-alt"style="color:black"> 
-    <strong><%= link_to micropost.title, micropost_path(micropost) %>:</strong>
-   <%= micropost.text %><br></div>
-    <div id="timestamp">posted <%= time_ago_in_words(micropost.created_at) %> ago.</div>
-  </div>
+  <%= link_to micropost_path(micropost) do %>
+  <div class="polaroid col-md-1 ">
+  <b style="font-size:20px">@<%= micropost.user.name%></b><br/>
+
+ <%= image_tag "back.jpg"  %> 
+  <!-- <div class="container"> -->
+    <p><strong><%= link_to micropost.title, micropost_path(micropost) %>: </strong><%= micropost.text %></p>
+    <div id="timestamp">posted <%= time_ago_in_words(micropost.created_at) %> ago.</div><br>
+
+<i class="fa fa-heart-o" aria-hidden="true"></i>
+<span class="badge"><%= micropost.likes.count %></span> 
+
+<span class="badge pull-right">0</span>
+<i class="fa fa-commenting-o pull-right" aria-hidden="true" style="padding-right:5px"></i>
+  <!-- </div> -->
+</div>
+    <% end %>
 
   <% end %>
 
