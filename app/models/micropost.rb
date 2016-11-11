@@ -6,7 +6,8 @@ class Micropost < ActiveRecord::Base
                     length: { minimum: 5 }
       validates :text, presence: true , length: {maximum: 140}
       validates :content, presence: true
-      has_many :likes
+      has_many :likes ,dependent: :destroy
+      has_many :comments ,dependent: :destroy
 
       
   

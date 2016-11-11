@@ -2,16 +2,20 @@
 <% provide(:name, "GAMES") %>
 <center>
 <%= link_to "rubik's cube" , cube_path %><br>
-<%= image_tag "Capture3.jpg" , class: " game " %><br><br>
-<%= image_tag "Capture.jpg" , class: " game " %>
+<%= link_to "Maps" , trial_path %><br>
+<%= image_tag "Capture3.jpg" , class: " game1 " %><br><br>
+<%= image_tag "Capture.jpg" , class: " game2 " %>
 </center>
 
 <script>
 var ready;
 ready = function() {
 
-$(".game").click(function(){
-	$("#myModal").modal('show');
+$(".game1").click(function(){
+	$("#myModal1").modal('show');
+}) ;
+$(".game2").click(function(){
+	$("#myModal2").modal('show');
 }) ;
 $(".close").click(function(){
 	$('#m').popover('hide');
@@ -20,10 +24,18 @@ $(".close").click(function(){
 $(document).ready(ready);
 $(document).on('page:load', ready);
 </script>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   
       <div class="modal-body">
       	 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
          <%= render :template =>'/game/platformer' %>
+      </div>
+</div>
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  
+      <div class="modal-body">
+      	 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+         <%= render :template =>'/game/newgame' %>
       </div>
 </div>

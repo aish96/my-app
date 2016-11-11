@@ -1,0 +1,31 @@
+<% provide(:title, @user.name) %>
+<% provide(:name, "PROFILE") %>
+
+ <%= @user.name %><br>
+ <%= @user.email %><br>
+ MICROPOSTS: <%= @user.microposts.count %>
+ <% if @user == current_user %>
+ <%= link_to "edit profile", edit_user_registration_path , class: "btn btn-danger pull-right"%>
+ <% else %>
+ <%= link_to "follow", '#', class: "btn btn-default pull-right" , remote: true , method: :post %>
+
+ <% end %>
+<hr>
+<% @user.microposts.each do |micropost| %>
+     <%= link_to micropost_path(micropost) do %>
+            <div class="polaroid col-md-1 ">
+                
+                <%= image_tag "back.jpg"  %> 
+                <!-- <div class="container"> -->
+                  <p><strong><%=link_to micropost.title,micropost_path(micropost) %>: </strong><%= micropost.text %></p>
+                  <div id="timestamp">posted <%= time_ago_in_words(micropost.created_at) %> ago.</div><br>
+
+               <i class="fa fa-heart" aria-hidden="true" style="color:#e60073;"></i>
+                <span class="badge"><%= micropost.likes.count %></span> 
+
+               <span class="badge pull-right"><%= micropost.comments.count %></span>
+               <i class="fa fa-commenting-o pull-right" aria-hidden="true" style="padding-right:5px"></i>
+                <!-- </div> -->
+          </div>
+    <% end %>
+<% end %>

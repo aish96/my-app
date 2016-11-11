@@ -1,0 +1,20 @@
+<% @micropost.comments.each do |comment| %>
+<div class="row">
+<div class="col-sm-1" style="padding:15px;">
+<center><%= User.find(comment.user_id).name %>:</center>
+</div>
+   <div style="padding:10px;background:pink;border-radius:15px 0px 15px 0px;" class="col-sm-11">
+<%= comment.comment_text %>
+    </div>
+</div><br>
+<% end %>
+<%= form_for([@micropost, @micropost.comments.build],:remote => true)  do |f| %>
+
+   <p>
+    <%= f.label current_user.name %>
+    <%= f.text_area :comment_text ,class:'form-control',placeholder: 'new comment' %>
+  </p>
+  <p>
+    <%= f.submit "Create comment",class: ' btn btn-success' %>
+  </p>
+<% end %>

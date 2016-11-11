@@ -1,4 +1,4 @@
-  <body background="<%= asset_path('shades.jpg') %>">
+  <body style="background-image:url('/assets/shades.jpg') ">
 
 <%= form_for @micropost do |f| %>
 
@@ -15,6 +15,31 @@
       </ul>
     </div>
   <% end %>
+   <!-- <textarea id="editor"></textarea> -->
+  <!--  <button onclick="submit_html();">TEST</button>
+   <iframe id="result"></iframe> -->
+   <!-- <div id="editor_jotted"></div> -->
+<script>
+  new Jotted(document.querySelector('#editor_jotted'), {
+    files: [{
+      type: 'html',
+       content: "<h1>HTML Content</h1>"
+     // url: 'index.html'
+    }],
+      showBlank:true,
+      plugins: [
+    'stylus',
+    {
+      name: 'codemirror',
+      options: {
+        lineNumbers: true
+      }
+    }
+  ]
+
+  })
+</script>
+
   <div class="form-group">
     <%= f.label :title %>
     <%= f.text_field :title, class: 'form-control' %>
@@ -27,23 +52,37 @@
     <%= f.label :content %>
     <%= f.text_area :content, class: 'form-control',id:'froala-editor'  %>
   </div>
-  
+
+  <p>
+    <%= f.submit "save", class: 'button2 btn btn-success' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', microposts_path,class: 'button2 btn btn-default' %>
+
 <script>
   $(function() {
     $('#froala-editor').froalaEditor({
       // Set custom buttons with separator between them.
+         heightMin: 150,
       toolbarButtons: [ 'bold', 'italic', 'underline', 'strikethrough', '|','fontSize','fontFamily','color', 'subscript', 'superscript', 'outdent', 'indent', 'clearFormatting','link', 'insertTable', 'html', '|','undo', 'redo' ],
       toolbarButtonsXS: ['undo', 'redo' , '-', 'bold', 'italic', 'underline'],
        fontFamilySelection: true,
-         height: 300,
          // linkAlwaysBlank: true
 
-    })
+    });
   });
+   var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+            lineNumbers: true,
+            mode:  "xml"
+        });
+   function submit_html()
+        {
+            editor.save();
+            var code = document.getElementById("editor").value;
+            var data_url = "data:text/html;charset=utf-8;base64," + $.base64.encode(code);
+            alert(data_url);
+            document.getElementById("result").src = data_url;
+        }
 </script>
-  <p>
-    <%= f.submit "save", class: 'button2 btn btn-primary' %>
-  </p>
-<% end %>
-
-<%= link_to 'Back', microposts_path %>
+</body>

@@ -1,5 +1,5 @@
-<%= link_to  micropost_unlike_path(@micropost), method: :put,class: "btn btn-lg btn-default unliked" , style: 'border-radius:20px; background:rgba(0,0,0,0); ',remote:true do%>
-<i class="fa fa-heart" aria-hidden="true" ></i>&nbsp Unlike
+<%= link_to  micropost_unlike_path(@micropost), method: :delete,class: "btn btn-lg btn-default unliked" , style: 'border-radius:20px; ',remote:true do%>
+<i class="fa fa-heart" aria-hidden="true" style="color:#e60073;" ></i>&nbsp Unlike
 <span class="badge">
 <%= @micropost.likes.count %>
 </span>

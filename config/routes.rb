@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :locations
+  get 'users/profile'
+
   devise_for :users 
   root 'articles#home'
   get 'articles/help'
@@ -16,9 +19,14 @@ Rails.application.routes.draw do
  end
   resources :microposts, only: [:index,:show]
   resources :microposts do
-    put :like
-    put :unlike
+    post :like
+    delete :unlike
+    resources :comments 
   end
+ resources :users do
+  get :profile
+end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

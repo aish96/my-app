@@ -27,8 +27,16 @@
 //= require CanvasRenderer
 //= require OrbitControls
 //= require stats_min
+
+//=require underscore
+//= require gmaps/google
+//= require jotted
 //= require jquery.turbolinks
 //
+//= require codemirror
+//= require codemirror/modes/xml
+//= require codemirror/modes/htmlmixed
+//= require codemirror/modes/javascript
 //= require froala_editor.min.js
 //= require plugins/font_family.min.js
 //= require plugins/font_size.min.js

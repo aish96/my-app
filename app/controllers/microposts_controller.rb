@@ -47,16 +47,19 @@ def destroy
   
 def like
     @micropost= Micropost.find(params[:micropost_id])
-    @cnt=0
-    Like.create(:user_id =>current_user.id , :micropost_id=>@micropost.id)
+    Like.find_or_create_by(:user_id =>current_user.id , :micropost_id=>@micropost.id)
     
   end
   def unlike
     @micropost= Micropost.find(params[:micropost_id])
-    @cnnt=0
-     Like.find_by_user_id_and_micropost_id(current_user,@micropost.id).destroy
+     Like.find_by_user_id_and_micropost_id(current_user.id,@micropost.id).destroy
    
   end
+
+  # def comment
+  #   @micropost=Micropost.find(params[:micropost_id])
+  #   Comment.find_or_create_by(:user_id => current_user.id , :micropost_id => @micropost.id)
+  # end
 
 private
   def micropost_params

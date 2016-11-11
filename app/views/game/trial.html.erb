@@ -1,1 +1,23 @@
 <% provide(:title, "3d maze") %>
+
+
+<div style='width: 800px;'>
+  <div id="map" style='width: 1000px; height: 600px;'></div>
+</div>
+<script >
+
+handler = Gmaps.build('Google');
+handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+  markers = handler.addMarkers([
+     { lat: 23, lng: 72},
+    { lat: 28, lng: 77},
+    { lat: 18, lng: 72},
+    { lat: 49, lng: 4},
+    { lat: 51, lng: 3.5},
+      //"infowindow": "hello!"
+    //}
+  ]);
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+});
+</script>

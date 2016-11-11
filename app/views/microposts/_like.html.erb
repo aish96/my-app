@@ -1,4 +1,4 @@
-<%= link_to  micropost_like_path(@micropost), method: :put,class: "btn btn-lg btn-default liked" , style: 'border-radius:20px; background:rgba(0,0,0,0);',remote:true do %>
+<%= link_to  micropost_like_path(@micropost), method: :post,class: "btn btn-lg btn-default liked" , style: 'border-radius:20px;',remote:true do %>
 <i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp Like
 <span class="badge"><%= @micropost.likes.count %></span>
 <% end %>

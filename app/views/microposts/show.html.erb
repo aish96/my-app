@@ -18,26 +18,33 @@
 
  
 </div>
-<div class="well" id='likes'>
+<div class="row">
+<div  id='likes' class="col-sm-2">
 <% if Like.find_by_user_id_and_micropost_id(current_user,@micropost).nil? %>
 <%= render 'like' %>
 <% else %>
 <%= render 'unlike' %>
 <% end %>
 </div>
-<div class="btn-group btn-group-justified">
-  <%= link_to 'Back', microposts_path , class: "btn btn-primary"%>
-
+<div class="col-sm-10 ">
+  <%= link_to microposts_path , class: "btn btn-lg btn-default" ,style: 'border-radius:20px;' do%>
+  	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i>  Back
+  	<% end %>
   
 <% if   current_user.id == @micropost.user_id %>
-<%= link_to 'Edit', edit_micropost_path ,class: "btn btn-success"%>
-<%= link_to "Delete", @micropost, method: :delete,
-                                       data: { confirm: "You sure?" } ,class: "btn btn-danger" %>
+<%= link_to edit_micropost_path ,class: "btn btn-lg btn-success",style: 'border-radius:20px;' do%>
+<i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Edit
+  	<% end %>
+<%= link_to  @micropost, method: :delete,
+                                       data: { confirm: "You sure?" } ,class: "btn btn-lg btn-danger",style: 'border-radius:20px;' do %>
+           <i class="fa fa-trash-o" aria-hidden="true"></i>  Delete
+  	<% end %>
+
 <% end -%>
 </div>
-<div id="fkk"></div>
-<script type="text/javascript">
+</div>
+<div id='comment' class="well">
+	<%= render 'comments/create'%>
+</div>
 
-	
-</script>
 </body>
